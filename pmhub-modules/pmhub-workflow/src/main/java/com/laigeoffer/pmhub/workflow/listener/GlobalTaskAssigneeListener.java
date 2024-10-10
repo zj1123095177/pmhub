@@ -20,6 +20,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * 创建任务开始（任务节点发生变动）事件
@@ -67,7 +68,7 @@ public class GlobalTaskAssigneeListener extends AbstractFlowableEngineEventListe
         // 申请人id
         String createUid = taskEntity.getVariable(BpmnXMLConstants.ATTRIBUTE_EVENT_START_INITIATOR).toString();
         // 审批类型
-        String type = taskEntity.getVariable(ProcessUtils.APPROVAL_TYPE).toString();
+        Object variable = taskEntity.getVariable(ProcessUtils.APPROVAL_TYPE);
         // 处理人id
         String actinUid = taskEntity.getAssignee();
 
@@ -82,16 +83,16 @@ public class GlobalTaskAssigneeListener extends AbstractFlowableEngineEventListe
         }
 
         // 发送消息
-        creatWxMessage(
-                  Long.parseLong(createUid)
-                , Long.parseLong(actinUid)
-                , taskEntity.getVariables()
-                , taskEntity.getProcessDefinitionId()
-                , taskEntity.getProcessInstanceId()
-                , taskEntity.getId()
-                , taskEntity.getVariable(ProcessUtils.TASK_DETAIL_URL_KEY).toString()
-                , null, type
-        );
+//        creatWxMessage(
+//                  Long.parseLong(createUid)
+//                , Long.parseLong(actinUid)
+//                , taskEntity.getVariables()
+//                , taskEntity.getProcessDefinitionId()
+//                , taskEntity.getProcessInstanceId()
+//                , taskEntity.getId()
+//                , taskEntity.getVariable(ProcessUtils.TASK_DETAIL_URL_KEY).toString()
+//                , null, Objects.nonNull(variable) ? variable.toString() : null
+//        );
 
 
         LogFactory.get().info("任务创建------------------------End---------------------->");

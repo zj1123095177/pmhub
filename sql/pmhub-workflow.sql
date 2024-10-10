@@ -1566,6 +1566,8 @@ INSERT INTO `pmhub_wf_model_deploy` (`id`, `model_id`, `deployed`, `created_by`,
 COMMIT;
 
 
+
+
 -- ----------------------------
 -- Table structure for pmhub_wf_approval_set
 -- ----------------------------
@@ -1608,6 +1610,30 @@ CREATE TABLE `pmhub_materials_scrapped_process`
     `url`           text COMMENT '详情地址',
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT ='冗余表，带物料模块上线';
+
+-- ----------------------------
+-- Records of pmhub_materials_scrapped_process
+-- ----------------------------
+BEGIN;
+COMMIT;
+
+CREATE TABLE `pmhub_project_task_process`
+(
+    `id`            varchar(64) NOT NULL,
+    `extra_id`      varchar(64) DEFAULT NULL,
+    `approved`      varchar(10) DEFAULT NULL COMMENT '是否需要审批',
+    `instance_id`   varchar(64) DEFAULT NULL COMMENT '流程实例id',
+    `deployment_id` varchar(64) DEFAULT NULL COMMENT '部署id',
+    `definition_id` varchar(64) DEFAULT NULL COMMENT '流程定义id',
+    `task_id`       varchar(64) DEFAULT NULL COMMENT '流程任务id',
+    `created_by`    varchar(64) DEFAULT NULL,
+    `created_time`  datetime    DEFAULT NULL,
+    `updated_by`    varchar(64) DEFAULT NULL,
+    `updated_time`  datetime    DEFAULT NULL,
+    `type`          varchar(64) DEFAULT NULL COMMENT '类型task/project等',
+    `url`           text COMMENT '详情地址',
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of pmhub_materials_scrapped_process

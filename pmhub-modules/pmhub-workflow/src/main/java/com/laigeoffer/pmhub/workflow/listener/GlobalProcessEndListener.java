@@ -23,6 +23,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 /**
@@ -71,7 +72,8 @@ public class GlobalProcessEndListener extends AbstractFlowableEngineEventListene
         FlowableEntityEventImpl flowableEntityEvent = (FlowableEntityEventImpl) event;
         ExecutionEntityImpl processInstance = (ExecutionEntityImpl) flowableEntityEvent.getEntity();
 
-        String type = processInstance.getVariable(ProcessUtils.APPROVAL_TYPE).toString();
+
+        String type = (String) Optional.ofNullable(processInstance.getVariable(ProcessUtils.APPROVAL_TYPE)).orElse("");
 
         // 获取申请人的微信
         SysUser sysUser = wfCopyMapper.selectUserById(Long.parseLong(processInstance.getVariable(BpmnXMLConstants.ATTRIBUTE_EVENT_START_INITIATOR).toString()));
